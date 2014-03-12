@@ -10,6 +10,7 @@ $new_algo = $argv[1];
 // some constants that vary based on file location
 define("CONFIG_FILE", "/etc/haproxy/haproxy.cfg");
 define("ALGO_FILE", "algorithms.txt");
+define("RELOAD_FILE", "graceful_reload.sh");
 
 $config_file = explode("\n", file_get_contents(CONFIG_FILE));
 $algo_file = explode("\n", trim(file_get_contents(ALGO_FILE)));
@@ -50,10 +51,7 @@ fwrite($f, implode("\n", $config_file));
 fclose($f);
 
 // now run the HAProxy reloader
-$shell_reloader = 	"iptables -I INPUT -p tcp --dport 80 --syn -j DROP" 	."\n".
-			"sleep 0.1" 						."\n".
-			"service haproxy restart"				."\n".
-			"iptables -D INPUT -p tcp --dport 80 --syn -j DROP";	
+$shell_reloader = file_get_contents(RELOAD_FILE);
 shell_exec($shell_reloader);
 
 ?>
