@@ -28,8 +28,12 @@ if ($valid == false) {
 	exit(-1);
 }
 
+// and array to contain a list of all ports that haproxy is currently bound to
+$ports = array();
+
 // make the changes
 foreach ($config_file as $key => $line) {
+	// search for LB_ALGO
 	if (preg_match("#balance#i", $line)) {
 		// it has now found a line related to LB_ALGO. if it finds an existing algorithm 
 		// name there, it's going to replace it with the new algorithm.
@@ -43,6 +47,13 @@ foreach ($config_file as $key => $line) {
 			}
 		}		
 	}
+	// search for bound port numbers
+	else if (preg_match("#\blisten\b#", $line)) {
+		if (($pos = strpos($line, ":")) !== false) {
+			$port = explode(" ", substr($line, $pos+1), 2);
+			array_push($ports, $port[0]);
+		}	
+	}
 }
 
 // write the changes to the config file
@@ -50,8 +61,22 @@ $f = fopen(CONFIG_FILE, "w");
 fwrite($f, implode("\n", $config_file));
 fclose($f);
 
+// build a string shell command before executing to keep overhead as low as possible
+$shell_reloader = "";
+$undrop = "";
+
+// begin closing all bound ports using iptables so as to avoid packet loss
+foreach ($ports as $port) {
+	echo "Securing port ".$port."\n";
+	$shell_reloader .= "iptables -I INPUT -p tcp --dport ".$port." --syn -j DROP\n";
+	$undrop .= "iptables -D INPUT -p tcp --dport ".$port." --syn -j DROP\n";
+}
+
+$shell_reloader .= 	"sleep 0.1\n".
+			"service haproxy restart\n".
+			$undrop;
+
 // now run the HAProxy reloader
-$shell_reloader = file_get_contents(RELOAD_FILE);
 shell_exec($shell_reloader);
 
 ?>
