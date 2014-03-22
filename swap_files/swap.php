@@ -1,11 +1,20 @@
 <?php
 
-// fetch command line argument of the new algorithm name
-if (!isset($argv[1]) || isset($argv[2])) {
-	echo "Usage: ".$argv[0]." [LB_ALGO]\n";
-	exit(-1);
+// true if the script is being accessed from the html interface
+$post = false;
+
+if (isset($_POST["LB_ALGO"])) {
+	// fetch new algorithm name from html form
+	$new_algo = $_POST["LB_ALGO"];
+	$post = true;
+} else {
+	// fetch command line argument of the new algorithm name
+	if (!isset($argv[1]) || isset($argv[2])) {
+		echo "Usage: ".$argv[0]." [LB_ALGO]\n";
+		exit(-1);
+	}
+	$new_algo = $argv[1];
 }
-$new_algo = $argv[1];
 
 // some constants that vary based on file location
 define("CONFIG_FILE", "/etc/haproxy/haproxy.cfg");
@@ -24,7 +33,10 @@ foreach ($algo_file as $algorithm) {
 	}
 }
 if ($valid == false) {
-	echo "Unrecognised LB_ALGO: ".$new_algo."\n";
+	if ($post)
+		echo "error";
+	else
+		echo "Unrecognised LB_ALGO: ".$new_algo."\n";
 	exit(-1);
 }
 
@@ -40,7 +52,10 @@ foreach ($config_file as $key => $line) {
 		foreach ($algo_file as $algorithm) {
 			if (($pos = strpos($line, $algorithm)) !== false) {
 				if (strcmp($algorithm, $new_algo) == 0) {
-					echo "Algorithm already in use: ".$algorithm.". Aborting\n";
+					if ($post)
+						echo "ignore";
+					else
+						echo "Algorithm already in use: ".$algorithm.". Aborting\n";
 					exit(-1);
 				}
 				$config_file[$key] = substr_replace($config_file[$key], $new_algo, $pos, strlen($algorithm));
@@ -67,7 +82,6 @@ $undrop = "";
 
 // begin closing all bound ports using iptables so as to avoid packet loss
 foreach ($ports as $port) {
-	echo "Securing port ".$port."\n";
 	$shell_reloader .= "iptables -I INPUT -p tcp --dport ".$port." --syn -j DROP\n";
 	$undrop .= "iptables -D INPUT -p tcp --dport ".$port." --syn -j DROP\n";
 }
@@ -78,5 +92,9 @@ $shell_reloader .= 	"sleep 0.1\n".
 
 // now run the HAProxy reloader
 shell_exec($shell_reloader);
+
+// return algorithm to ajax call
+if ($post)
+	echo $new_algo;
 
 ?>
