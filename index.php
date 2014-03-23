@@ -78,10 +78,10 @@ $algo_file = explode("\n", trim(file_get_contents(ALGO_FILE)));
           <ul class="nav navbar-nav navbar-right">
             <!--<li><button type="submit" class="btn btn-primary btn-lg active"><strong>Run</strong></button></li>-->
             <li><input type="submit" class="btn btn-primary btn-lg active" value="Run"></li>
-            <li><a href="#"></a></li>
-            <li><input type="text" class="form-control" placeholder="Amount (packets/s)"></li>
-            <li><a href="#"></a></li>
-            <li><input type="text" class="form-control" placeholder="Delay in seconds"></li>
+            <li><a href="#"><strong>Amount :</strong> </a></li>
+            <li><input type="text" class="form-control" placeholder="Number of packets/s)"></li>
+            <li><a href="#"><strong>Delay : </strong></a></li>
+            <li><input type="text" class="form-control" placeholder="Number of seconds"></li>
             <li><a href="#"></a></li>
             <!--
             <li><button type="button" class="btn btn-default btn-lg active"><strong> + </strong></button></li>
