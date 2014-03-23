@@ -1,0 +1,8 @@
+roundrobin
+static-rr
+leastconn
+source
+uri
+url_param
+hdr
+rdp-cookie
