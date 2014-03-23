@@ -74,14 +74,21 @@ $algo_file = explode("\n", trim(file_get_contents(ALGO_FILE)));
           <a class="navbar-brand" href="#">Haproxy hotswap framework</a>
         </div>
         <div class="navbar-collapse collapse">
+          <form method="POST" action="load_generator.php">
           <ul class="nav navbar-nav navbar-right">
-            <li><button type="button" class="btn btn-primary btn-lg active"><strong>Run</strong></button></li>
-            <li><a><strong>Delay :</strong></a></li>
-            <li><a><strong>80 sec</strong></a></li>
+            <!--<li><button type="submit" class="btn btn-primary btn-lg active"><strong>Run</strong></button></li>-->
+            <li><input type="submit" class="btn btn-primary btn-lg active" value="Run"></li>
+            <li><a href="#"></a></li>
+            <li><input type="text" class="form-control" placeholder="Amount (packets/s)"></li>
+            <li><a href="#"></a></li>
+            <li><input type="text" class="form-control" placeholder="Delay in seconds"></li>
+            <li><a href="#"></a></li>
+            <!--
             <li><button type="button" class="btn btn-default btn-lg active"><strong> + </strong></button></li>
             <li><button type="button" class="btn btn-default btn-lg active"><strong> - </strong></button></li>
-            <li><a href="#"><strong>Help</strong></a></li>
+            <li><a href="#"><strong>Help</strong></a></li>-->
           </ul>
+          </form>
           <!--<form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
           </form>-->
@@ -118,7 +125,7 @@ $algo_file = explode("\n", trim(file_get_contents(ALGO_FILE)));
             <a id="algo_status">current: <? echo $current ?></a>
           </form>
         </div>
-        
+        <!--
         <div id="load_generator" style="text-align:left; vertical-align:top; display:inline-block; padding:0 10px 0 10px">
           <a>Load generator</a>
           <form method="POST" action="load_generator.php">
@@ -126,8 +133,8 @@ $algo_file = explode("\n", trim(file_get_contents(ALGO_FILE)));
             <br>
             <input type="text" placeholder="amount (packets/s)">
             <input type="submit" value="Generate">
-          </form>
-        </div>
+          </form>-
+        </div>-->
       </div>
 
           <!--<h2 class="sub-header">Section title</h2>
