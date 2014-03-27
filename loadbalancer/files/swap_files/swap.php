@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * swap.php
+ *
+ * hotswaps the LB_ALGO into haproxy, and gracefully reloads
+ */
+
 // true if the script is being accessed from the html interface
 $post = false;
 
@@ -81,17 +87,7 @@ $shell_reloader = "";
 $undrop = "";
 
 // begin closing all bound ports using iptables so as to avoid packet loss
-foreach ($ports as $port) {
-	$shell_reloader .= "iptables -I INPUT -p tcp --dport ".$port." --syn -j DROP\n";
-	$undrop .= "iptables -D INPUT -p tcp --dport ".$port." --syn -j DROP\n";
-}
-
-$shell_reloader .= 	"sleep 0.1\n".
-			"service haproxy restart\n".
-			$undrop;
-
-// now run the HAProxy reloader
-shell_exec($shell_reloader);
+shell_exec("sudo /var/www/files/swap_files/graceful_reload.sh");
 
 // return algorithm to ajax call
 if ($post)

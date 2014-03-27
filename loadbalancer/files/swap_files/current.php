@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * current.php
+ *
+ * returns the current LB_ALGO in use
+ */
+
 function getCurrentAlgo() {
 	// some constants that vary based on file location
 	define("CONFIG_FILE", "/etc/haproxy/haproxy.cfg");
