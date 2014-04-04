@@ -21,6 +21,7 @@ if (!is_numeric($rate) || !is_numeric($duration)) {
 	exit(-1);
 }
 
+// sends a post request to the load generator
 $options = array(
 	'http' => array(
 		'header'  => "Content-type: application/x-www-form-urlencoded\r\n",

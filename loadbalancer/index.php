@@ -1,14 +1,21 @@
 <?php
 
+/*
+ * index.php
+ *
+ * main page of the web ui. accesses trigger-switcher.php and manual-switcher.php
+ * to use for the switching display.
+ */
+
 // some supporting files
 define("ALGO_FILE", "files/swap_files/algorithms.txt");
 
 // an array of every LB_ALGO available
 $algo_file = explode("\n", trim(file_get_contents(ALGO_FILE)));
 
+// loads the manual switcher and trigger switcher views from the external php files, and cleans them
 exec("php manual-switcher.php", $man_out);
 $manual_switcher = addslashes(trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', ' ', implode("\n", $man_out))));
-
 exec("php trigger-switcher.php", $trig_out);
 $trigger_switcher = addslashes(trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', ' ', implode("\n", $trig_out))));
 
@@ -37,25 +44,7 @@ $trigger_switcher = addslashes(trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', ' ', 
 		<script src="scripts/actions.js"></script>
 		<script>
 			$( document ).ready(function() {
-				/*setInterval(function() {
-					var container = document.getElementById('bottom-frame-container');
-					var source = container.getElementsByTagName('iframe')[0];
-
-					var newFrame = document.createElement('iframe');
-
-					for (i = 0; i < source.attributes.length; i++) {
-						var attr = source.attributes[i];
-						newFrame.setAttribute(attr.name, attr.value);
-					}
-					
-					newFrame.style.visibility = 'hidden';
-					newFrame.id = 'bottom-frame';
-					container.appendChild(newFrame);
-	
-					newFrame.style.visibility = 'visible';
-					//sleep(0.1);
-					container.removeChild(container.getElementsByTagName('iframe')[0]);
-				}, 1000);*/
+				// refreshes the current algorithm at the top of the page every second
 				setInterval(function() {
 					$.get('files/swap_files/current.php', function(data) {
 						$('#current_algo').html(data);
@@ -64,13 +53,14 @@ $trigger_switcher = addslashes(trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', ' ', 
 			});
 
 			function switchManual() {
+				// removes the trigger switcher view and inserts the manual switcher
 				$('#manual_container').removeAttr("style");
 				$('#trigger_container').attr("style","display:none");
 			}
 			function switchTrigger() {
+				// removes the manual switcher view and inserts the trigger switcher
 				$('#trigger_container').removeAttr("style");
 				$('#manual_container').attr("style","display:none");
-
 			}
 		</script>
 	</head>

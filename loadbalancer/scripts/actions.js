@@ -1,4 +1,6 @@
 $(function () {
+
+	// == begin jQuery form handlers ==
 	$('#algo_switch_form').on('submit', function (e) {
 		$.ajax({
 			type: 'post',
@@ -84,8 +86,10 @@ $(function () {
 			}
 		});
 		e.preventDefault();
-	});
+	});	
+	// == end jQuery form handlers ==
 
+	// == the rest of the code handles the progress bar for load generation ==
 	var timer,
 		perc,
 		timeTotal,

@@ -1,9 +1,9 @@
 <?php
 
 /*
- * time_wrapper.php
+ * currconns_wrapper.php
  *
- * interfaces between client-side js and time.sh
+ * interfaces between client-side js and currconns.sh
  */
 
 if (!(isset($_POST["LB_ALGO"]) && isset($_POST["boundary"]) && isset($_POST["reaction"]))) {

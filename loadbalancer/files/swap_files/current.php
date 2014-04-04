@@ -3,7 +3,7 @@
 /*
  * current.php
  *
- * returns the current LB_ALGO in use
+ * returns the current LB_ALGO in use by parsing the haproxy config file
  */
 
 // some constants that vary based on file location

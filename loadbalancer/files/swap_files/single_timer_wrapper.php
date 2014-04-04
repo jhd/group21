@@ -1,7 +1,7 @@
 <?php
 
 /*
- * time_wrapper.php
+ * single_timer_wrapper.php
  *
  * interfaces between client-side js and time.sh
  */

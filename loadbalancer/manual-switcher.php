@@ -1,6 +1,11 @@
 <?php
 
-// some supporting files
+/*
+ * manual-switcher.php
+ *
+ * this file generates the manual switcher view for index.php
+ */
+
 define("ALGO_FILE", "files/swap_files/algorithms.txt");
 
 // an array of every LB_ALGO available

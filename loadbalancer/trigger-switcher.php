@@ -1,6 +1,11 @@
 <?php
 
-// some supporting files
+/*
+ * trigger-switcher.php
+ *
+ * this file generates the trigger switcher view for index.php
+ */
+ 
 define("ALGO_FILE", "files/swap_files/algorithms.txt");
 
 // an array of every LB_ALGO available

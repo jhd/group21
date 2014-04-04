@@ -1,9 +1,9 @@
 <?php
 
 /*
- * time_wrapper.php
+ * auto_wrapper.php
  *
- * interfaces between client-side js and time.sh
+ * interfaces between client-side js and auto.sh
  */
 
 if (!isset($_POST["time"])) {
