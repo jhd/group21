@@ -114,18 +114,18 @@ $trigger_switcher = addslashes(trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', ' ', 
 			<div id="split_nav" class="navbar-collapse collapse bottom-collapse">
  				<ul class="nav navbar-nav">
             		<li id="nav_stats" class="active">
-						<a onclick="document.getElementById('bottom-frame').src='http://10.62.0.15/haproxy?stats';$('#split_nav li').removeClass();$('#nav_stats').addClass('active')">HAProxy-Stats</a>
+						<a onclick="document.getElementById('bottom-frame').src='http://_LOADBALANCER_/haproxy?stats';$('#split_nav li').removeClass();$('#nav_stats').addClass('active')">HAProxy-Stats</a>
 					</li>
             		<li id="nav_graphs">
-						<a onclick="document.getElementById('bottom-frame').src='http://10.62.0.15:9001/munin/haproxy-day.html';$('#split_nav li').removeClass();$('#nav_graphs').addClass('active')">Graphs</a>
+						<a onclick="document.getElementById('bottom-frame').src='http://_LOADBALANCER_:9001/munin/haproxy-day.html';$('#split_nav li').removeClass();$('#nav_graphs').addClass('active')">Graphs</a>
 					</li>
          			<li id="nav_lts">
-						<a onclick="document.getElementById('bottom-frame').src='http://10.62.0.1';$('#split_nav li').removeClass();$('#nav_lts').addClass('active')">Load Tester Stats</a>
+						<a onclick="document.getElementById('bottom-frame').src='http://_LOADTESTER_';$('#split_nav li').removeClass();$('#nav_lts').addClass('active')">Load Tester Stats</a>
 					</li>
           		</ul>
         	</div>	
 			<div id="bottom-frame-container">
-				<iframe id="bottom-frame" width="100%" height="50%" frameborder="0" allowTransparency="true" src="http://10.62.0.15/haproxy?stats">
+				<iframe id="bottom-frame" width="100%" height="50%" frameborder="0" allowTransparency="true" src="http://_LOADBALANCER_/haproxy?stats">
 			</div>
 		</div>
 		

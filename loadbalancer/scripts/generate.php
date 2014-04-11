@@ -6,7 +6,7 @@
  * sends a request to the load tester to start generating the specified amount of packets
  */
 
-define("LOAD_TESTER", "http://10.62.0.1/load_files/generate.php");
+define("LOAD_TESTER", "http://_LOADTESTER_/load_files/generate.php");
 
 if (!isset($_POST["rate"]) || !isset($_POST["duration"])) {
 	echo "error";
